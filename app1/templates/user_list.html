@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div>
+            <a class="btn btn-primary" href="/user/add">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新建用户
+            </a>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                用户列表
+            </div>
+
+
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>密码</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>余额</th>
+                    <th>入职时间</th>
+                    <th>所属部门</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for obj in user_list %}
+                <tr>
+                    <td>{{ obj.id }}</td>
+                    <td>{{ obj.name }}</td>
+                    <td>{{ obj.password }}</td>
+                    <td>{{ obj.get_gender_display }}</td>
+                    <td>{{ obj.age }}</td>
+                    <td>{{ obj.account }}</td>
+                    <td>{{ obj.create_time|date:"Y-m-d"}}</td>
+                    <td>{{ obj.depart.title }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/user/{{ obj.id }}/edit">编辑</a>
+                        <a class="btn btn-danger btn-xs" href="/user/{{ obj.id }}/del">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <ul class="pagination">
+            {{ page_string }}
+            <li>
+                <form style="float: left; margin-left: -1px" method="get">
+                    <input name="page"
+                           style="position: relative; float: left; display: inline-block; width: 80px; border-radius: 0;"
+                           type="text"
+                           class="form-control"
+                           placeholder="页码"
+                    >
+                    <button type="submit" class="btn btn-primary" style="border-radius: 0;">跳转</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

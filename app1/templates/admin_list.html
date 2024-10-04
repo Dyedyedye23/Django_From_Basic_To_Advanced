@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container">
+        <div>
+            <a class="btn btn-primary" href="/admin/add">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新建管理员
+            </a>
+            <div style="float: right; width: 300px">
+                <form method="get">
+                    <div class="input-group">
+                        <form action="get"></form>
+                        <input type="text" name="q" class="form-control" placeholder="Search for..."
+                               value="{{ search_data }}">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="subit">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                管理员列表
+            </div>
+
+
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>密码</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for obj in admin_list %}
+                <tr>
+                    <td>{{ obj.id }}</td>
+                    <td>{{ obj.username }}</td>
+                    <td>******</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/admin/{{ obj.id }}/edit">编辑</a>
+                        <a class="btn btn-primary btn-xs" href="/admin/{{ obj.id }}/reset">重置密码</a>
+                        <a class="btn btn-danger btn-xs" href="/admin/{{ obj.id }}/del">删除</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+     <ul class="pagination">
+            {{ page_string }}
+            <li>
+                <form style="float: left; margin-left: -1px" method="get">
+                    <input name="page"
+                        style="position: relative; float: left; display: inline-block; width: 80px; border-radius: 0;"
+                           type="text"
+                           class="form-control"
+                           placeholder="页码"
+                    >
+                    <button type="submit" class="btn btn-primary" style="border-radius: 0;">跳转</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}
